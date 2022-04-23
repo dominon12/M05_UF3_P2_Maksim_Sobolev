@@ -11,3 +11,17 @@ CREATE TABLE [Company] (
     [Web] NTEXT NULL,
     [Email] NTEXT NULL
 )
+
+CREATE TABLE [Product] (
+    [Id] INTEGER PRIMARY KEY,
+    [Type] TINYINT NULL DEFAULT 0,
+    [Summary] NTEXT NULL,
+    [Icon] NTEXT NULL,
+    [Banner] NTEXT NULL,
+    [Trailer] NTEXT NULL,
+    [Price] FLOAT NULL DEFAULT 0,
+    [Publishing] DATETIME2 NULL DEFAULT GETDATE(),
+    [Size] FLOAT NULL DEFAULT 0,
+    [Developer] INTEGER NULL,
+    [Editor] INTEGER NULL
+)
