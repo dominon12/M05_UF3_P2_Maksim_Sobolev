@@ -11,7 +11,7 @@ namespace M05_UF3_P2_Template.Pages.Companies
     public class CompanyModel : PageModel
     {
         [BindProperty(SupportsGet =true)]
-        public int Id { get; set; }
+        public long Id { get; set; }
         [BindProperty]
         public Company company { get; set; }
         public void OnGet()
@@ -31,7 +31,7 @@ namespace M05_UF3_P2_Template.Pages.Companies
             else
             {
                 company.Add();
-                Id = (int)DatabaseManager.Scalar("Company", DatabaseManager.SCALAR_TYPE.MAX, new string[] { "Id" }, "");
+                Id = (long)DatabaseManager.Scalar("Company", DatabaseManager.SCALAR_TYPE.MAX, new string[] { "Id" }, "");
                 OnGet();
             }
         }

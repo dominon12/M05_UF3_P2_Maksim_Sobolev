@@ -8,7 +8,7 @@ namespace M05_UF3_P2_Template.App_Code.Model
 {
     public class Company
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Icon { get; set; }
         public string IconBackground { get; set; }
@@ -25,7 +25,7 @@ namespace M05_UF3_P2_Template.App_Code.Model
         {
             try
             {
-                Id = (int)row[0];
+                Id = (long)row[0];
             }
             catch
             {
@@ -39,7 +39,7 @@ namespace M05_UF3_P2_Template.App_Code.Model
             Web = row[6].ToString();
             Email = row[7].ToString();
         }
-        public Company(int Id) : this(DatabaseManager.Select("Company", null, "Id = " + Id + " ").Rows[0]) { }
+        public Company(long Id) : this(DatabaseManager.Select("Company", null, "Id = " + Id + " ").Rows[0]) { }
 
         public bool Update()
         {
@@ -73,7 +73,7 @@ namespace M05_UF3_P2_Template.App_Code.Model
         {
             return Remove(Id);
         }
-        public static bool Remove(int id)
+        public static bool Remove(long id)
         {
             return DatabaseManager.Delete("Company", id) > 0 ? true : false;
         }

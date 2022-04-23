@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
 using System.Text;
+using Microsoft.Data.Sqlite;
 
 public static class DatabaseManager
 {
-    //public const string ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\\M05_UF3_P2_Template\\App_Data\\mainDB.mdf;Integrated Security=True;Connect Timeout=30";
-    public static readonly string ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + AppDomain.CurrentDomain.GetData("RelativePath") + "\\App_Data\\mainDB.mdf;Integrated Security=True;Connect Timeout=30";
+    //public const string ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\\M05_UF3_P2_Template\\App_Data\\mainDB.mdf;longegrated Security=True;Connect Timeout=30";
+    //public static readonly string ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + AppDomain.CurrentDomain.GetData("RelativePath") + "\\App_Data\\mainDB.mdf;longegrated Security=True;Connect Timeout=30";
 
     #region TYPES
     public class DB_Field
@@ -114,6 +115,13 @@ public static class DatabaseManager
 
     #region METHODS
 
+    public static string GetConnectionString()
+    {
+        SqliteConnectionStringBuilder connectionStringBuilder = new SqliteConnectionStringBuilder();
+        connectionStringBuilder.DataSource = AppDomain.CurrentDomain.GetData("RelativePath") + "/App_Data/mainDB.db";
+        return connectionStringBuilder.ConnectionString;
+    }
+
     #region SELECT
 
     /// <summary>
@@ -124,15 +132,17 @@ public static class DatabaseManager
     public static DataTable Select(string commandString)
     {
         DataTable result = new DataTable();
-        using (SqlConnection connection = new SqlConnection(ConnectionString))
+
+        using (var connection = new SqliteConnection(GetConnectionString()))
         {
-            using (SqlCommand command = new SqlCommand(commandString, connection))
+            connection.Open();
+
+            var selectCmd = connection.CreateCommand();
+            selectCmd.CommandText = commandString;
+
+            using (var reader = selectCmd.ExecuteReader())
             {
-                connection.Open();
-                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                {
-                    adapter.Fill(result);
-                }
+                result.Load(reader);
             }
         }
         return result;
@@ -154,7 +164,7 @@ public static class DatabaseManager
         }
         else
         {
-            for (int i = 0; i < fields.Length; i++)
+            for (long i = 0; i < fields.Length; i++)
             {
                 if (i > 0)
                 {
@@ -183,7 +193,7 @@ public static class DatabaseManager
         StringBuilder sb = new StringBuilder();
         if (conditions != null)
         {
-            for (int i = 0; i < conditions.Length; i++)
+            for (long i = 0; i < conditions.Length; i++)
             {
                 if (i > 0)
                 {
@@ -201,13 +211,12 @@ public static class DatabaseManager
 
     public static object Scalar(string commandString)
     {
-        using (SqlConnection connection = new SqlConnection(ConnectionString))
+        using (var connection = new SqliteConnection(GetConnectionString()))
         {
-            using (SqlCommand command = new SqlCommand(commandString, connection))
-            {
-                connection.Open();
-                return (object)command.ExecuteScalar();
-            }
+            connection.Open();
+            var command = connection.CreateCommand();
+            command.CommandText = commandString;
+            return command.ExecuteScalar();
         }
     }
 
@@ -228,7 +237,7 @@ public static class DatabaseManager
         }
         else
         {
-            for (int i = 0; i < fields.Length; i++)
+            for (long i = 0; i < fields.Length; i++)
             {
                 if (i > 0)
                 {
@@ -247,7 +256,7 @@ public static class DatabaseManager
         StringBuilder sb = new StringBuilder();
         if (conditions != null)
         {
-            for (int i = 0; i < conditions.Length; i++)
+            for (long i = 0; i < conditions.Length; i++)
             {
                 if (i > 0)
                 {
@@ -267,15 +276,15 @@ public static class DatabaseManager
     /// </summary>
     /// <param name="commandString"></param>
     /// <returns></returns>
-    public static int Execute(string commandString)
+    public static long Execute(string commandString)
     {
-        using (SqlConnection connection = new SqlConnection(ConnectionString))
+        using (var connection = new SqliteConnection(GetConnectionString()))
         {
-            using (SqlCommand command = new SqlCommand(commandString, connection))
-            {
-                connection.Open();
-                return command.ExecuteNonQuery();
-            }
+            connection.Open();
+
+            var command = connection.CreateCommand();
+            command.CommandText = commandString;
+            return command.ExecuteNonQuery();
         }
     }
 
@@ -286,10 +295,10 @@ public static class DatabaseManager
     /// <param name="values">Columns & Values to update</param>
     /// <param name="condition">Conditions (Optional)</param>
     /// <returns></returns>
-    public static int Update(string table, DB_Field[] values, string condition = null)
+    public static long Update(string table, DB_Field[] values, string condition = null)
     {
         StringBuilder sb = new StringBuilder(" UPDATE " + table + " SET ");
-        for (int i = 0; i < values.Length; i++)
+        for (long i = 0; i < values.Length; i++)
         {
             if (i > 0)
             {
@@ -308,16 +317,16 @@ public static class DatabaseManager
     /// <param name="values">Columns & Values to update</param>
     /// <param name="id">Id of the row to update</param>
     /// <returns></returns>
-    public static int Update(string table, DB_Field[] values, int id)
+    public static long Update(string table, DB_Field[] values, long id)
     {
         return Update(table, values, " ID = " + id + " ");
     }
-    public static int Update(string table, DB_Field[] values, DB_Comparer[] conditions = null)
+    public static long Update(string table, DB_Field[] values, DB_Comparer[] conditions = null)
     {
         StringBuilder sb = new StringBuilder();
         if (conditions != null)
         {
-            for (int i = 0; i < conditions.Length; i++)
+            for (long i = 0; i < conditions.Length; i++)
             {
                 if (i > 0)
                 {
@@ -328,23 +337,23 @@ public static class DatabaseManager
         }
         return Update(table, values, sb.ToString());
     }
-    public static int Delete(string table, string condition = null)
+    public static long Delete(string table, string condition = null)
     {
         StringBuilder sb = new StringBuilder(" DELETE FROM " + table + " ");
         if (!string.IsNullOrWhiteSpace(condition))
             sb.Append(" WHERE " + condition);
         return Execute(sb.ToString());
     }
-    public static int Delete(string table, int id)
+    public static long Delete(string table, long id)
     {
         return Delete(table, " ID = " + id + " ");
     }
-    public static int Delete(string table, DB_Comparer[] conditions = null)
+    public static long Delete(string table, DB_Comparer[] conditions = null)
     {
         StringBuilder sb = new StringBuilder();
         if (conditions != null)
         {
-            for (int i = 0; i < conditions.Length; i++)
+            for (long i = 0; i < conditions.Length; i++)
             {
                 if (i > 0)
                 {
@@ -356,10 +365,10 @@ public static class DatabaseManager
         return Delete(table, sb.ToString());
     }
 
-    public static int Insert(string table, DB_Field[] values)
+    public static long Insert(string table, DB_Field[] values)
     {
         StringBuilder sb = new StringBuilder(" INSERT INTO " + table + " ( ");
-        for (int i = 0; i < values.Length; i++)
+        for (long i = 0; i < values.Length; i++)
         {
             if (i > 0)
             {
@@ -368,7 +377,7 @@ public static class DatabaseManager
             sb.Append(" " + values[i].field + " ");
         }
         sb.Append(" ) VALUES ( ");
-        for (int i = 0; i < values.Length; i++)
+        for (long i = 0; i < values.Length; i++)
         {
             if (i > 0)
             {
