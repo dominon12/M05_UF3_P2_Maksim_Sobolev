@@ -87,5 +87,53 @@ namespace M05_UF3_P2_Template.App_Code.Model
                 Editor = 0;
             }
         }
+
+        public Product(long Id) : this(DatabaseManager.Select("Product", null, "Id = " + Id + " ").Rows[0]) { }
+
+        public bool Update()
+        {
+            DatabaseManager.DB_Field[] fields = new DatabaseManager.DB_Field[]
+            {
+                new DatabaseManager.DB_Field("Type", (int)Type),
+                new DatabaseManager.DB_Field("Summart", Summary),
+                new DatabaseManager.DB_Field("Icon", Icon),
+                new DatabaseManager.DB_Field("Banner", Banner),
+                new DatabaseManager.DB_Field("Trailer", Trailer),
+                new DatabaseManager.DB_Field("Price", Price),
+                new DatabaseManager.DB_Field("Publishing", Publishing),
+                new DatabaseManager.DB_Field("Size", Size),
+                new DatabaseManager.DB_Field("Developer", Developer),
+                new DatabaseManager.DB_Field("Editor", Editor),
+            };
+            return DatabaseManager.Update("Product", fields, "Id = " + Id + " ") > 0 ? true : false;
+        }
+
+        public bool Add()
+        {
+            DatabaseManager.DB_Field[] fields = new DatabaseManager.DB_Field[]
+            {
+                new DatabaseManager.DB_Field("Type", (int)Type),
+                new DatabaseManager.DB_Field("Summart", Summary),
+                new DatabaseManager.DB_Field("Icon", Icon),
+                new DatabaseManager.DB_Field("Banner", Banner),
+                new DatabaseManager.DB_Field("Trailer", Trailer),
+                new DatabaseManager.DB_Field("Price", Price),
+                new DatabaseManager.DB_Field("Publishing", Publishing),
+                new DatabaseManager.DB_Field("Size", Size),
+                new DatabaseManager.DB_Field("Developer", Developer),
+                new DatabaseManager.DB_Field("Editor", Editor),
+            };
+            return DatabaseManager.Insert("Product", fields) > 0 ? true : false;
+        }
+
+        public bool Remove()
+        {
+            return Remove(Id);
+        }
+
+        public static bool Remove(long id)
+        {
+            return DatabaseManager.Delete("Product", id) > 0 ? true : false;
+        }
     }
 }
