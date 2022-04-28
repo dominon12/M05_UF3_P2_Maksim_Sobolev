@@ -1,0 +1,48 @@
+@page
+@model M05_UF3_P2_Template.Pages.Products.SearcherModel
+@using M05_UF3_P2_Template.App_Code.Model;
+@{
+    ViewData["Title"] = "Products Searcher";
+}
+
+<h1>Searcher</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Publishing</th>
+            <th>Size</th>
+            <th>Developer</th>
+            <th>Editor</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Product product in Model.products)
+        {
+        <tr>
+            <td>@product.Banner</td>
+            <td>@product.Price.ToString("0.00")$</td>
+            <td>@product.Publishing.ToShortDateString()</td>
+            <td>@product.Size.ToString("0.0")Gb</td>
+            <td>-</td>
+            <td>-</td>
+            <td>
+                <form asp-page-handler="delete" asp-route-id="@product.Id" method="post">
+                    <a class="btn btn-primary" asp-page="/Products/Product" asp-route-id="@product.Id" title="View product">
+                        <span class="material-icons text-white">visibility</span>
+                    </a>
+                    <button class="btn btn-danger"><span class="material-icons text-white">delete</span></button>
+                </form>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
