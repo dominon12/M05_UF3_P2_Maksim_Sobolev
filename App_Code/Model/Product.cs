@@ -16,8 +16,12 @@ namespace M05_UF3_P2_Template.App_Code.Model
         public float Price { get; set; }
         public DateTime Publishing { get; set; }
         public float Size { get; set; }
-        public long Developer { get; set; }
-        public long Editor { get; set; }
+        public long Developer_Id { get; set; }
+        public Company Developer { get; set; }
+        public long Editor_Id { get; set; }
+        public Company Editor { get; set; }
+        
+        
 
         public Product()
         {
@@ -72,20 +76,25 @@ namespace M05_UF3_P2_Template.App_Code.Model
             }
             try
             {
-                Developer = (long)row[9];
+                Developer_Id = (long)row[9];
             }
             catch
             {
-                Developer = 0;
+                Developer_Id = 0;
             }
+
+            if (Developer_Id > 0) Developer = new Company(Developer_Id);
+
             try
             {
-                Editor = (long)row[10];
+                Editor_Id = (long)row[10];
             }
             catch
             {
-                Editor = 0;
+                Editor_Id = 0;
             }
+
+            if (Editor_Id > 0) Editor = new Company(Editor_Id);
         }
 
         public Product(long Id) : this(DatabaseManager.Select("Product", null, "Id = " + Id + " ").Rows[0]) { }

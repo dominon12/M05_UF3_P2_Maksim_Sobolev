@@ -27,16 +27,26 @@
             <td>@product.Price.ToString("0.00")$</td>
             <td>@product.Publishing.ToShortDateString()</td>
             <td>@product.Size.ToString("0.0")Gb</td>
-            <td>-</td>
-            <td>-</td>
             <td>
-                <form asp-page-handler="delete" asp-route-id="@product.Id" method="post">
-                    <a class="btn btn-primary" asp-page="/Products/Product" asp-route-id="@product.Id" title="View product">
-                        <span class="material-icons text-white">visibility</span>
-                    </a>
-                    <button class="btn btn-danger"><span class="material-icons text-white">delete</span></button>
-                </form>
+                @if (product.Developer != null)
+                {
+                    <a asp-page="/Companies/Company" asp-route-id="@product.Developer.Id">@product.Developer.Name</a>
+                }
             </td>
+            <td>
+                @if (product.Editor != null)
+                {
+                <a asp-page="/Companies/Company" asp-route-id="@product.Editor.Id">@product.Editor.Name</a>
+                }
+            </td>
+        <td>
+            <form asp-page-handler="delete" asp-route-id="@product.Id" method="post">
+                <a class="btn btn-primary" asp-page="/Products/Product" asp-route-id="@product.Id" title="View product">
+                    <span class="material-icons text-white">visibility</span>
+                </a>
+                <button class="btn btn-danger"><span class="material-icons text-white">delete</span></button>
+            </form>
+        </td>
         </tr>
         }
     </tbody>
