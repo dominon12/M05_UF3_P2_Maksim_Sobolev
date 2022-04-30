@@ -40,5 +40,13 @@
 -- INSERT INTO Game VALUES (2, 3, NULL, NULL);
 
 -- DELETE FROM Game WHERE Id = 2;
-SELECT * FROM Game;
+
+CREATE TABLE [Video] (
+    [Id] INTEGER PRIMARY KEY,
+    [Product_Id] INTEGER NULL,
+    [Duration] FLOAT NULL
+)
+;
+
+-- SELECT * FROM Game;
 
