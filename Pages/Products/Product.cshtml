@@ -7,13 +7,16 @@
 <h1>Product</h1>
 
 <form method="post">
-
     <input asp-for="product.Summary" placeholder="Summary" />
     <input type="number" asp-for="product.Price" placeholder="Price" />
     <input type="number" asp-for="product.Developer_Id" placeholder="Developer" />
     <input type="number" asp-for="product.Editor_Id" placeholder="Editor" />
 
     <button type="submit" class="btn btn-primary float-right"><span class="material-icons">save</span></button>
+
+    <a class="btn btn-primary float-right" asp-page="/Products/Game" asp-route-id="@Model.Game_Id" title="Edit game">
+        <span class="material-icons text-white">edit</span>
+    </a>
 </form>
 
 @section Scripts {

@@ -73,8 +73,6 @@ namespace M05_UF3_P2_Template.App_Code.Model
 
         public void Fill(DataRow row)
         {
-            Console.WriteLine("Price");
-            Console.WriteLine(row[6]);
             try
             {
                 Id = (long)row[0];

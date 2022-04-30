@@ -1,0 +1,19 @@
+@page
+@model M05_UF3_P2_Template.Pages.Products.GameModel
+@{
+    ViewData["Title"] = "Game";
+}
+
+<h1>Game</h1>
+
+<form method="post">
+    <input type="number" asp-for="game.Product_Id" placeholder="Product ID" />
+    <input type="number" asp-for="game.Rating" placeholder="Rating" />
+    <input asp-for="game.Version" placeholder="Version" />
+
+    <button type="submit" class="btn btn-primary float-right"><span class="material-icons">save</span></button>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

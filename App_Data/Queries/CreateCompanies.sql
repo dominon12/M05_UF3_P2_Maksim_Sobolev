@@ -39,5 +39,6 @@
 -- ;
 -- INSERT INTO Game VALUES (2, 3, NULL, NULL);
 
--- SELECT * FROM Game WHERE Product_Id = 2;
+-- DELETE FROM Game WHERE Id = 2;
+SELECT * FROM Game;
 
