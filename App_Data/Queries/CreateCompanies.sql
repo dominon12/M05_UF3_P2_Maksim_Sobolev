@@ -28,4 +28,5 @@
 --     [Editor] INTEGER NULL
 -- );
 
--- INSERT INTO Product VALUES (1, 0, 'Some summary', 'icon', 'banner', 'trailer', 25, CURRENT_TIMESTAMP, 23, 1, 1);
+SELECT * FROM Product;
+

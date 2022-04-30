@@ -13,9 +13,9 @@ namespace M05_UF3_P2_Template.App_Code.Model
         public string Icon { get; set; }
         public string Banner { get; set; }
         public string Trailer { get; set; }
-        public float Price { get; set; }
+        public double Price { get; set; }
         public DateTime Publishing { get; set; }
-        public float Size { get; set; }
+        public double Size { get; set; }
         public long Developer_Id { get; set; }
         public Company Developer { get; set; }
         public long Editor_Id { get; set; }
@@ -30,6 +30,8 @@ namespace M05_UF3_P2_Template.App_Code.Model
 
         public Product(DataRow row)
         {
+            Console.WriteLine("Price");
+            Console.WriteLine(row[6]);
             try
             {
                 Id = (long)row[0];
@@ -52,10 +54,11 @@ namespace M05_UF3_P2_Template.App_Code.Model
             Trailer = row[5].ToString();
             try
             {
-                Price = (float)row[6];
+                Price = (double)row[6];
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e.ToString());
                 Price = 0;
             }
             try
@@ -68,7 +71,7 @@ namespace M05_UF3_P2_Template.App_Code.Model
             }
             try
             {
-                Size = (float)row[8];
+                Size = (double)row[8];
             }
             catch
             {
@@ -104,15 +107,15 @@ namespace M05_UF3_P2_Template.App_Code.Model
             DatabaseManager.DB_Field[] fields = new DatabaseManager.DB_Field[]
             {
                 new DatabaseManager.DB_Field("Type", (int)Type),
-                new DatabaseManager.DB_Field("Summart", Summary),
+                new DatabaseManager.DB_Field("Summary", Summary),
                 new DatabaseManager.DB_Field("Icon", Icon),
                 new DatabaseManager.DB_Field("Banner", Banner),
                 new DatabaseManager.DB_Field("Trailer", Trailer),
                 new DatabaseManager.DB_Field("Price", Price),
-                new DatabaseManager.DB_Field("Publishing", Publishing),
+                //new DatabaseManager.DB_Field("Publishing", Publishing),
                 new DatabaseManager.DB_Field("Size", Size),
-                new DatabaseManager.DB_Field("Developer", Developer),
-                new DatabaseManager.DB_Field("Editor", Editor),
+                new DatabaseManager.DB_Field("Developer", Developer_Id),
+                new DatabaseManager.DB_Field("Editor", Editor_Id),
             };
             return DatabaseManager.Update("Product", fields, "Id = " + Id + " ") > 0 ? true : false;
         }
@@ -122,15 +125,15 @@ namespace M05_UF3_P2_Template.App_Code.Model
             DatabaseManager.DB_Field[] fields = new DatabaseManager.DB_Field[]
             {
                 new DatabaseManager.DB_Field("Type", (int)Type),
-                new DatabaseManager.DB_Field("Summart", Summary),
+                new DatabaseManager.DB_Field("Summary", Summary),
                 new DatabaseManager.DB_Field("Icon", Icon),
                 new DatabaseManager.DB_Field("Banner", Banner),
                 new DatabaseManager.DB_Field("Trailer", Trailer),
                 new DatabaseManager.DB_Field("Price", Price),
-                new DatabaseManager.DB_Field("Publishing", Publishing),
+                //new DatabaseManager.DB_Field("Publishing", Publishing),
                 new DatabaseManager.DB_Field("Size", Size),
-                new DatabaseManager.DB_Field("Developer", Developer),
-                new DatabaseManager.DB_Field("Editor", Editor),
+                new DatabaseManager.DB_Field("Developer", Developer_Id),
+                new DatabaseManager.DB_Field("Editor", Editor_Id),
             };
             return DatabaseManager.Insert("Product", fields) > 0 ? true : false;
         }

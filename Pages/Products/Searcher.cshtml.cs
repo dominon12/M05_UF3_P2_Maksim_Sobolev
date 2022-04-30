@@ -21,5 +21,11 @@ namespace M05_UF3_P2_Template.Pages.Products
                 products.Add(new Product(dataRow));
             }
         }
+
+        public void OnPostDelete(int id)
+        {
+            Product.Remove(id);
+            OnGet();
+        }
     }
 }

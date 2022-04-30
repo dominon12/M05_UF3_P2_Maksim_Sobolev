@@ -1,0 +1,21 @@
+@page
+@model M05_UF3_P2_Template.Pages.Products.ProductModel
+@{
+    ViewData["Title"] = "Product";
+}
+
+<h1>Product</h1>
+
+<form method="post">
+
+    <input asp-for="product.Summary" placeholder="Summary" />
+    <input type="number" asp-for="product.Price" placeholder="Price" />
+    <input type="number" asp-for="product.Developer_Id" placeholder="Developer" />
+    <input type="number" asp-for="product.Editor_Id" placeholder="Editor" />
+
+    <button type="submit" class="btn btn-primary float-right"><span class="material-icons">save</span></button>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

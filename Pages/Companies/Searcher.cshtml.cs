@@ -12,6 +12,7 @@ namespace M05_UF3_P2_Template.Pages.Companies
     public class SearcherModel : PageModel
     {
         public List<Company> companies = new List<Company>();
+
         public void OnGet()
         {
             DataTable dt = DatabaseManager.Select("Company", new string[] { "*" }, "");
@@ -20,6 +21,7 @@ namespace M05_UF3_P2_Template.Pages.Companies
                 companies.Add(new Company(dataRow));
             }
         }
+
         public void OnPostDelete(int id)
         {
             Company.Remove(id);
