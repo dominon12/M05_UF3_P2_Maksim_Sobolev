@@ -1,0 +1,26 @@
+@page
+@model M05_UF3_P2_Template.Pages.Products.VideoModel
+@{
+    ViewData["Title"] = "Video";
+}
+
+<h1>Video</h1>
+
+<div style="display: flex; align-items: center; justify-content: space-between;">
+    <form method="post" style="display: flex; align-items: center; justify-content: space-between;">
+        <input type="number" asp-for="video.Product_Id" placeholder="Product ID" />
+        <input type="number" asp-for="video.Duration" placeholder="Rating" />
+
+        <button type="submit" class="btn btn-primary float-right"><span class="material-icons">save</span></button>
+    </form>
+
+    @if (Model.video != null)
+    {
+<form class="float-right" asp-page-handler="delete" asp-route-id="@Model.video.Id" method="post">
+    <button class="btn btn-danger"><span class="material-icons text-white">delete</span></button>
+</form>}
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
