@@ -4,18 +4,33 @@
 
 <h1>Game</h1>
 
-<div style="display: flex; align-items: center; justify-content: space-between;">
-    <form method="post" style="display: flex; align-items: center; justify-content: space-between;">
-        <input type="number" asp-for="game.Product_Id" placeholder="Product ID" />
-        <input type="number" asp-for="game.Rating" placeholder="Rating" />
-        <input asp-for="game.Version" placeholder="Version" />
+<div>
+    <form method="post">
+        <div class="form-group">
+            <label>
+                Product ID
+                <input type="number" asp-for="game.Product_Id" placeholder="Product ID" class="form-control" />
+            </label>
+        </div>
+        <div class="form-group">
+            <label>
+                Rating
+                <input type="number" asp-for="game.Rating" placeholder="Rating" class="form-control" />
+            </label>
+        </div>
+        <div class="form-group">
+            <label>
+                Version
+                <input asp-for="game.Version" placeholder="Version" class="form-control" />
+            </label>
+        </div>
 
-        <button type="submit" class="btn btn-primary float-right"><span class="material-icons">save</span></button>
+        <button type="submit" class="btn btn-primary"><span class="material-icons">save</span></button>
     </form>
 
     @if (Model.game != null)
     {
-        <form class="float-right" asp-page-handler="delete" asp-route-id="@Model.game.Id" method="post">
+        <form asp-page-handler="delete" asp-route-id="@Model.game.Id" method="post">
             <button class="btn btn-danger"><span class="material-icons text-white">delete</span></button>
         </form>}
 </div>

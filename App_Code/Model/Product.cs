@@ -85,7 +85,7 @@ namespace M05_UF3_P2_Template.App_Code.Model
             {
                 Type = (TYPE)(long)row[1];
             }
-            catch (Exception e)
+            catch
             {
                 Type = TYPE.GAME;
             }

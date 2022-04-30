@@ -131,7 +131,6 @@ public static class DatabaseManager
     /// <returns></returns>
     public static DataTable Select(string commandString)
     {
-        Console.WriteLine(commandString);
         DataTable result = new DataTable();
 
         using (var connection = new SqliteConnection(GetConnectionString()))
