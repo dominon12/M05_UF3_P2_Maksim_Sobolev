@@ -28,5 +28,16 @@
 --     [Editor] INTEGER NULL
 -- );
 
-SELECT * FROM Product;
+-- DROP TABLE Game;
+
+-- CREATE TABLE [Game] (
+--     [Id] INTEGER PRIMARY KEY,
+--     [Product_Id] INTEGER NULL,
+--     [Rating] FLOAT NULL,
+--     [Version] NVARCHAR(50) NULL
+-- )
+-- ;
+-- INSERT INTO Game VALUES (2, 3, NULL, NULL);
+
+-- SELECT * FROM Game WHERE Product_Id = 2;
 

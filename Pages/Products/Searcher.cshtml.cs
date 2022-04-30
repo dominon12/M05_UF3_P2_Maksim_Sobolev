@@ -18,7 +18,14 @@ namespace M05_UF3_P2_Template.Pages.Products
             DataTable dt = DatabaseManager.Select("Product", new string[] { "*" }, "");
             foreach (DataRow dataRow in dt.Rows)
             {
-                products.Add(new Product(dataRow));
+                Product product = new Product(dataRow);
+
+                if (product.Type == Product.TYPE.GAME)
+                {
+                    product = new Game(DatabaseManager.Select("Game", null, "Product_Id = " + product.Id + " ").Rows[0]);
+                }
+
+                products.Add(product);
             }
         }
 

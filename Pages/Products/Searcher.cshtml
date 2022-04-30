@@ -12,6 +12,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Type</th>
             <th>Name</th>
             <th>Price</th>
             <th>Publishing</th>
@@ -25,6 +26,20 @@
         @foreach (Product product in Model.products)
         {
             <tr>
+                <td>
+                    @if (product is Game)
+                    {
+                        <span class="material-icons">
+                            sports_esports
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="material-icons">
+                            question_mark
+                        </span>
+                    }
+                </td>
                 <td>@product.Summary</td>
                 <td>@product.Price.ToString("0.00")$</td>
                 <td>@product.Publishing.ToShortDateString()</td>
