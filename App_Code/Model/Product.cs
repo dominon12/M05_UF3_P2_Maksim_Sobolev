@@ -39,7 +39,7 @@ namespace M05_UF3_P2_Template.App_Code.Model
         {
             DatabaseManager.DB_Field[] fields = new DatabaseManager.DB_Field[]
             {
-                new DatabaseManager.DB_Field("Type", (int)Type),
+                new DatabaseManager.DB_Field("Type", (long)Type),
                 new DatabaseManager.DB_Field("Summary", Summary),
                 new DatabaseManager.DB_Field("Icon", Icon),
                 new DatabaseManager.DB_Field("Banner", Banner),
@@ -57,7 +57,7 @@ namespace M05_UF3_P2_Template.App_Code.Model
         {
             DatabaseManager.DB_Field[] fields = new DatabaseManager.DB_Field[]
             {
-                new DatabaseManager.DB_Field("Type", (int)Type),
+                new DatabaseManager.DB_Field("Type", (long)Type),
                 new DatabaseManager.DB_Field("Summary", Summary),
                 new DatabaseManager.DB_Field("Icon", Icon),
                 new DatabaseManager.DB_Field("Banner", Banner),
@@ -83,9 +83,9 @@ namespace M05_UF3_P2_Template.App_Code.Model
             }
             try
             {
-                Type = (TYPE)(int)row[1];
+                Type = (TYPE)(long)row[1];
             }
-            catch
+            catch (Exception e)
             {
                 Type = TYPE.GAME;
             }
