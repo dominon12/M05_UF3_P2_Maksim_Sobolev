@@ -13,6 +13,7 @@ namespace M05_UF3_P2_Template.Pages.Products
         [BindProperty(SupportsGet = true)]
         public long Id { get; set; }
         public long Game_Id { get; set; }
+        public long Video_Id { get; set; }
         [BindProperty]
         public Product product { get; set; }
 
@@ -25,6 +26,10 @@ namespace M05_UF3_P2_Template.Pages.Products
                 if (product.Type == Product.TYPE.GAME)
                 {
                     Game_Id = (long)DatabaseManager.Select("Game", new string[] { "Id" }, "Product_Id = " + Id + " ").Rows[0][0];
+                }
+                else if (product.Type == Product.TYPE.VIDEO)
+                {
+                    Video_Id = (long)DatabaseManager.Select("Video", new string[] { "Id" }, "Product_Id = " + Id + " ").Rows[0][0];
                 }
             }
         }

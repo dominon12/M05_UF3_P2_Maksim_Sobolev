@@ -14,9 +14,18 @@
 
     <button type="submit" class="btn btn-primary float-right"><span class="material-icons">save</span></button>
 
-    <a class="btn btn-primary float-right" asp-page="/Products/Game" asp-route-id="@Model.Game_Id" title="Edit game">
-        Game <span class="material-icons text-white">edit</span>
-    </a>
+    @if (Model.Game_Id > 0)
+    {
+        <a class="btn btn-primary float-right" asp-page="/Products/Game" asp-route-id="@Model.Game_Id" title="Edit game">
+            Game <span class="material-icons text-white">edit</span>
+        </a>
+    }
+    else if (Model.Video_Id > 0)
+    {
+        <a class="btn btn-primary float-right" asp-page="/Products/Game" asp-route-id="@Model.Video_Id" title="Edit video">
+            Game <span class="material-icons text-white">edit</span>
+        </a>
+    }
 </form>
 
 @section Scripts {
