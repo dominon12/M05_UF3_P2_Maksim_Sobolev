@@ -73,5 +73,15 @@ namespace M05_UF3_P2_Template.App_Code.Model
             };
             return DatabaseManager.Insert("Game", fields) > 0 ? true : false;
         }
+
+        public bool Remove()
+        {
+            return Remove(Id);
+        }
+
+        public static bool Remove(long id)
+        {
+            return DatabaseManager.Delete("Game", id) > 0 ? true : false;
+        }
     }
 }

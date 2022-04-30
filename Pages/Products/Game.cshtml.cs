@@ -37,5 +37,11 @@ namespace M05_UF3_P2_Template.Pages.Products
                 OnGet();
             }
         }
+
+        public IActionResult OnPostDelete(int id)
+        {
+            Game.Remove(id);
+            return Redirect("/Products/Searcher");
+        }
     }
 }
