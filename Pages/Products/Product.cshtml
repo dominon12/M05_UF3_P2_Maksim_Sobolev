@@ -65,34 +65,37 @@
 
         <button type="submit" class="btn btn-primary"><span class="material-icons">save</span></button>
 
-        @if (Model.product.Type == Product.TYPE.GAME)
+        @if (Model.Id > 0)
         {
-            @if (Model.Game_Id > 0)
+            @if (Model.product.Type == Product.TYPE.GAME)
             {
-            <a class="btn btn-primary" asp-page="/Products/Game" asp-route-id="@Model.Game_Id" title="Edit game">
-                Game <span class="material-icons text-white">edit</span>
-            </a>
-            }
-            else
-            {
-            <a class="btn btn-primary" asp-page="/Products/Game" title="Add game">
-                Game <span class="material-icons text-white">add</span>
-            </a>
-            }
-        }
-        else if (Model.product.Type == Product.TYPE.VIDEO)
-        {
-            @if (Model.Video_Id > 0)
-            {
-                <a class="btn btn-primary" asp-page="/Products/Video" asp-route-id="@Model.Video_Id" title="Edit game">
-                    Video <span class="material-icons text-white">edit</span>
+                @if (Model.Game_Id > 0)
+                {
+                <a class="btn btn-primary" asp-page="/Products/Game" asp-route-id="@Model.Game_Id" title="Edit game">
+                    Game <span class="material-icons text-white">edit</span>
                 </a>
-            }
-            else
-            {
-                <a class="btn btn-primary" asp-page="/Products/Video" title="Add game">
-                    Video <span class="material-icons text-white">add</span>
+                }
+                else
+                {
+                <a class="btn btn-primary" asp-page="/Products/Game" title="Add game">
+                    Game <span class="material-icons text-white">add</span>
                 </a>
+                }
+            }
+            else if (Model.product.Type == Product.TYPE.VIDEO)
+            {
+                @if (Model.Video_Id > 0)
+                {
+                    <a class="btn btn-primary" asp-page="/Products/Video" asp-route-id="@Model.Video_Id" title="Edit game">
+                        Video <span class="material-icons text-white">edit</span>
+                    </a>
+                }
+                else
+                {
+                    <a class="btn btn-primary" asp-page="/Products/Video" title="Add game">
+                        Video <span class="material-icons text-white">add</span>
+                    </a>
+                }
             }
         }
 </form>

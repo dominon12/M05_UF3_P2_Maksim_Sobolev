@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using M05_UF3_P2_Template.App_Code.Model;
@@ -25,11 +26,19 @@ namespace M05_UF3_P2_Template.Pages.Products
 
                 if (product.Type == Product.TYPE.GAME)
                 {
-                    Game_Id = (long)DatabaseManager.Select("Game", new string[] { "Id" }, "Product_Id = " + Id + " ").Rows[0][0];
+                    DataRowCollection dataRows = DatabaseManager.Select("Game", new string[] { "Id" }, "Product_Id = " + Id + " ").Rows;
+                    if (dataRows.Count > 0)
+                    {
+                        Game_Id = (long)dataRows[0][0];
+                    }
                 }
                 else if (product.Type == Product.TYPE.VIDEO)
                 {
-                    Video_Id = (long)DatabaseManager.Select("Video", new string[] { "Id" }, "Product_Id = " + Id + " ").Rows[0][0];
+                    DataRowCollection dataRows = DatabaseManager.Select("Video", new string[] { "Id" }, "Product_Id = " + Id + " ").Rows;
+                    if (dataRows.Count > 0)
+                    {
+                        Video_Id = (long)dataRows[0][0];
+                    }
                 }
             }
         }
