@@ -1,0 +1,40 @@
+@page
+@model M05_UF3_P2_Template.Pages.Products.GameModel
+@{ ViewData["Title"] = "Game"; }
+
+<h1>Game</h1>
+
+<div>
+    <form method="post">
+        <div class="form-group">
+            <label>
+                Product ID
+                <input type="number" asp-for="game.Product_Id" placeholder="Product ID" class="form-control" />
+            </label>
+        </div>
+        <div class="form-group">
+            <label>
+                Rating
+                <input type="number" asp-for="game.Rating" placeholder="Rating" class="form-control" />
+            </label>
+        </div>
+        <div class="form-group">
+            <label>
+                Version
+                <input asp-for="game.Version" placeholder="Version" class="form-control" />
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><span class="material-icons">save</span></button>
+    </form>
+
+    @if (Model.game != null)
+    {
+        <form asp-page-handler="delete" asp-route-id="@Model.game.Id" method="post">
+            <button class="btn btn-danger"><span class="material-icons text-white">delete</span></button>
+        </form>}
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

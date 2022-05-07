@@ -1,0 +1,105 @@
+@page
+@model M05_UF3_P2_Template.Pages.Products.ProductModel
+@using M05_UF3_P2_Template.App_Code.Model;
+@{
+    ViewData["Title"] = "Product";
+}
+
+<h1>Product</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label>
+            Summary
+            <input asp-for="product.Summary" placeholder="Summary" class="form-control" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label>
+            Price
+            <input type="number" asp-for="product.Price" placeholder="Price" class="form-control" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label>
+            Developer
+            <input type="number" asp-for="product.Developer_Id" placeholder="Developer" class="form-control" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label>
+            Editor
+            <input type="number" asp-for="product.Editor_Id" placeholder="Editor" class="form-control" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label>
+            Type
+            <input type="number" asp-for="product.Type" placeholder="Type" class="form-control" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label>
+            Icon
+            <input asp-for="product.Icon" placeholder="Icon" class="form-control" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label>
+            Banner
+            <input asp-for="product.Banner" placeholder="Banner" class="form-control" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label>
+            Trailer
+            <input asp-for="product.Trailer" placeholder="Trailer" class="form-control" />
+        </label>
+    </div>
+    <div class="form-group">
+        <label>
+            Size
+            <input type="number" asp-for="product.Size" placeholder="Size" class="form-control" />
+        </label>
+    </div>
+
+        <button type="submit" class="btn btn-primary"><span class="material-icons">save</span></button>
+
+        @if (Model.Id > 0)
+        {
+            @if (Model.product.Type == Product.TYPE.GAME)
+            {
+                @if (Model.Game_Id > 0)
+                {
+                <a class="btn btn-primary" asp-page="/Products/Game" asp-route-id="@Model.Game_Id" title="Edit game">
+                    Game <span class="material-icons text-white">edit</span>
+                </a>
+                }
+                else
+                {
+                <a class="btn btn-primary" asp-page="/Products/Game" title="Add game">
+                    Game <span class="material-icons text-white">add</span>
+                </a>
+                }
+            }
+            else if (Model.product.Type == Product.TYPE.VIDEO)
+            {
+                @if (Model.Video_Id > 0)
+                {
+                    <a class="btn btn-primary" asp-page="/Products/Video" asp-route-id="@Model.Video_Id" title="Edit game">
+                        Video <span class="material-icons text-white">edit</span>
+                    </a>
+                }
+                else
+                {
+                    <a class="btn btn-primary" asp-page="/Products/Video" title="Add game">
+                        Video <span class="material-icons text-white">add</span>
+                    </a>
+                }
+            }
+        }
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

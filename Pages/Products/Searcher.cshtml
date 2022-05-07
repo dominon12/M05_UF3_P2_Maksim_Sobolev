@@ -1,0 +1,73 @@
+@page
+@model M05_UF3_P2_Template.Pages.Products.SearcherModel
+@using M05_UF3_P2_Template.App_Code.Model;
+@{ ViewData["Title"] = "Products Searcher"; }
+
+<h1>Searcher</h1>
+
+<a class="btn btn-primary float-right" asp-page="/Products/Product" title="Add product">
+    <span class="material-icons text-white">add</span>
+</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Publishing</th>
+            <th>Size</th>
+            <th>Developer</th>
+            <th>Editor</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Product product in Model.products)
+        {
+            <tr>
+                <td>
+                    @if (product.Type is Product.TYPE.GAME)
+                    {
+                        <span class="material-icons">
+                            sports_esports
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="material-icons">
+                            videocam
+                        </span>
+                    }
+                </td>
+                <td>@product.Summary</td>
+                <td>@product.Price.ToString("0.00")$</td>
+                <td>@product.Publishing.ToShortDateString()</td>
+                <td>@product.Size.ToString("0.0")Gb</td>
+                <td>
+                    @if (product.Developer != null)
+                    {
+    <a asp-page="/Companies/Company" asp-route-id="@product.Developer.Id">@product.Developer.Name</a>                }
+                </td>
+                <td>
+                    @if (product.Editor != null)
+                    {
+    <a asp-page="/Companies/Company" asp-route-id="@product.Editor.Id">@product.Editor.Name</a>                }
+                </td>
+                <td>
+                    <form asp-page-handler="delete" asp-route-id="@product.Id" method="post">
+                        <a class="btn btn-primary" asp-page="/Products/Product" asp-route-id="@product.Id" title="View product">
+                            <span class="material-icons text-white">visibility</span>
+                        </a>
+                        <button class="btn btn-danger"><span class="material-icons text-white">delete</span></button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
